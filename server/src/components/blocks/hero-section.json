@@ -7,23 +7,23 @@
   "attributes": {
     "logo": {
       "type": "component",
-      "component": "elements.logo",
-      "repeatable": false
+      "repeatable": false,
+      "component": "elements.logo"
     },
     "image": {
-      "type": "media",
-      "multiple": false,
       "allowedTypes": [
         "images"
-      ]
+      ],
+      "type": "media",
+      "multiple": false
     },
     "heading": {
       "type": "string"
     },
     "cta": {
       "type": "component",
-      "component": "elements.link",
-      "repeatable": false
+      "repeatable": false,
+      "component": "elements.link"
     },
     "theme": {
       "type": "enumeration",
@@ -32,6 +32,5 @@
         "orange"
       ]
     }
-  },
-  "config": {}
+  }
 }
