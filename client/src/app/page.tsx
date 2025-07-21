@@ -1,20 +1,17 @@
 import { getHomePage } from "@/data/loaders";
 import { notFound } from "next/navigation";
+import { BlockRenderer } from "@/components/BlockRenderer";
 
 async function loader() {
-  const data = await getHomePage()
-  if (!data) notFound()
-  
-  return { ...data.data }
+  const data = await getHomePage();
+  if (!data) notFound();
+
+  return { ...data.data };
 }
 
 export default async function HomeRoute() {
   const data = await loader();
+  const blocks = data?.blocks || [];
   console.log(data);
-  return (
-    <div>
-      <h1>{data.title}</h1>
-      <p>{data.description}</p>
-    </div>
-  );
+  return <BlockRenderer blocks={blocks} />
 }
