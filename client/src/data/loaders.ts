@@ -1,6 +1,6 @@
-import qs from "qs"
-import { fetchAPI } from "@/utils/fetch-api"
-import { getStrapiUrl } from "@/utils/get-strapi-url"
+import qs from "qs";
+import { fetchAPI } from "@/utils/fetch-api";
+import { getStrapiUrl } from "@/utils/get-strapi-url";
 
 const homePageQuery = qs.stringify({
   populate: {
@@ -32,23 +32,23 @@ const homePageQuery = qs.stringify({
       },
     },
   },
-})
+});
 
 // Loads the home page
 export async function getHomePage() {
-  const path = "/api/home-page"
-  const BASE_URL = getStrapiUrl()
+  const path = "/api/home-page";
+  const BASE_URL = getStrapiUrl();
 
-  const url = new URL(path, BASE_URL)
+  const url = new URL(path, BASE_URL);
 
-  url.search = homePageQuery
-  
-  return fetchAPI(url.href, { method: "GET" })
+  url.search = homePageQuery;
+
+  return fetchAPI(url.href, { method: "GET" });
 }
 
 // Loads a page by slug
-const pageBySlugQuery = (slug: string) => qs.stringify(
-  {
+const pageBySlugQuery = (slug: string) =>
+  qs.stringify({
     filters: {
       slug: {
         $eq: slug,
@@ -80,11 +80,21 @@ const pageBySlugQuery = (slug: string) => qs.stringify(
               cta: true,
             },
           },
+          "blocks.featured-article": {
+            populate: {
+              image: {
+                fields: ["url", "alternativeText"],
+              },
+              link: true,
+            },
+          },
+          "blocks.subscribe": {
+            populate: true,
+          },
         },
       },
     },
-  },
-);
+  });
 
 export async function getPageBySlug(slug: string) {
   const path = "/api/pages";
