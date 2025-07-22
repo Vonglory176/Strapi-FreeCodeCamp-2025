@@ -2,6 +2,9 @@ import qs from "qs";
 import { fetchAPI } from "@/utils/fetch-api";
 import { getStrapiUrl } from "@/utils/get-strapi-url";
 
+const BASE_URL = getStrapiUrl();
+const BLOG_PAGE_SIZE = 2;
+
 const homePageQuery = qs.stringify({
   populate: {
     blocks: {
@@ -37,8 +40,6 @@ const homePageQuery = qs.stringify({
 // Loads the home page
 export async function getHomePage() {
   const path = "/api/home-page";
-  const BASE_URL = getStrapiUrl();
-
   const url = new URL(path, BASE_URL);
 
   url.search = homePageQuery;
@@ -98,8 +99,6 @@ const pageBySlugQuery = (slug: string) =>
 
 export async function getPageBySlug(slug: string) {
   const path = "/api/pages";
-  const BASE_URL = getStrapiUrl();
-
   const url = new URL(path, BASE_URL);
 
   url.search = pageBySlugQuery(slug);
@@ -145,5 +144,32 @@ export async function getGlobalSettings() {
   const url = new URL(path, BASE_URL);
 
   url.search = globalSettingQuery;
+  return fetchAPI(url.href, { method: "GET" });
+}
+
+// Content Loader - Used for bits like Featured Articles
+export async function getContent(path: string, featured?: boolean, query?: string, page?: string) {
+  const url = new URL(path, BASE_URL);
+
+  url.search = qs.stringify({
+    sort: ["createdAt:desc"],
+    filters: {
+      $or: [
+        { title: { $containsi: query } },
+        { description: { $containsi: query } },
+      ],
+      ...( featured && { featured: { $eq: featured } }),
+    },
+    pagination: {
+      pageSize: 2,
+      page: parseInt(page || "1"),
+    },
+    populate: {
+      image: {
+        fields: ["url", "alternativeText"],
+      },
+    },
+  });
+
   return fetchAPI(url.href, { method: "GET" });
 }
