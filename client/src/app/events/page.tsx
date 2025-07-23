@@ -23,7 +23,7 @@ const EventCard = (props: Readonly<CardProps>) => (
 );
 
 export default async function AllEventsRoute({
-  params,
+//   params,
   searchParams,
 }: ParamsProps) {
 //   const slug = (await params).slug;

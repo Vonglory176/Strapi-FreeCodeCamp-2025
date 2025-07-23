@@ -161,7 +161,7 @@ export async function getContent(path: string, featured?: boolean, query?: strin
       ...( featured && { featured: { $eq: featured } }),
     },
     pagination: {
-      pageSize: 2,
+      pageSize: BLOG_PAGE_SIZE,
       page: parseInt(page || "1"),
     },
     populate: {
