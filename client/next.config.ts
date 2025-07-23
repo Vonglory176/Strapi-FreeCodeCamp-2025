@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
         port: "1337",
         pathname: "/uploads/**/*",
       },
+      {
+        protocol: "https",
+        hostname: "acceptable-car-a44c1c94a3.strapiapp.com",
+        pathname: "/uploads/**/*",
+      },
     ],
   },
 };
