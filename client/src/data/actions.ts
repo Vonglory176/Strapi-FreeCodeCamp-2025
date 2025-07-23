@@ -8,7 +8,7 @@ const subscribeSchema = z.object({
   }),
 });
 
-export async function subscribeAction(prevState: Object, formData: FormData) {
+export async function subscribeAction(prevState: any, formData: FormData) {
   console.log("Our first server action");
   const email = formData.get("email");
 
@@ -73,7 +73,7 @@ const eventsSubscribeSchema = z.object({
   });
   
   
-  export async function eventsSubscribeAction(prevState: Object, formData: FormData) {
+  export async function eventsSubscribeAction(prevState: any, formData: FormData) {
     const formDataObject = {
       firstName: formData.get("firstName"),
       lastName: formData.get("lastName"),
