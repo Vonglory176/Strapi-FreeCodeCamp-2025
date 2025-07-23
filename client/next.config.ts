@@ -12,8 +12,8 @@ const nextConfig: NextConfig = {
       },
       {
         protocol: "https",
-        hostname: "acceptable-car-a44c1c94a3.media.strapiapp.com",
-        pathname: "/**/*",
+        hostname: "**.strapiapp.com", // acceptable-car-a44c1c94a3.media
+        pathname: "/uploads/**/*",
       },
     ],
   },
